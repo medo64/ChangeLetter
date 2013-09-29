@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.ServiceProcess;
 using System.Text;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace ChangeLetter {
         private void btnRemove_Click(object sender, EventArgs e) {
             var volume = cmbVolumes.SelectedItem as Volume;
             if (volume != null) {
-                Execute("remove", volume);
+                Execute(VolumeAction.Remove, volume);
                 this.Close();
             }
         }
@@ -37,7 +38,7 @@ namespace ChangeLetter {
             var volume = cmbVolumes.SelectedItem as Volume;
             var letter = cmbLetters.SelectedItem as String;
             if ((volume != null) && (letter != null)) {
-                Execute("change", volume, letter);
+                Execute(VolumeAction.Change, volume, letter);
                 this.Close();
             }
         }
@@ -93,7 +94,31 @@ namespace ChangeLetter {
         }
 
 
-        private void Execute(string action, Volume volume, string newLetter = null) {
+        private void Execute(VolumeAction action, Volume volume, string newLetter = null) {
+            if (IsVhdAttachAvailable()) {
+                ExecuteViaVhdAttach(action, volume, newLetter);
+            } else {
+                ExecuteViaExecutor(action, volume, newLetter);
+            }
+        }
+
+        private bool IsVhdAttachAvailable() {
+            using (var service = new ServiceController("VhdAttach")) {
+                try {
+                    return (service.Status == ServiceControllerStatus.Running);
+                } catch (InvalidOperationException) {
+                    return false; //VhdAttach service is missing
+                }
+            }
+        }
+
+        private enum VolumeAction {
+            Change,
+            Remove
+        }
+
+
+        private void ExecuteViaExecutor(VolumeAction action, Volume volume, string newLetter) {
             var fileThis = new FileInfo(Application.ExecutablePath);
             var fileExe = new FileInfo(Path.Combine(fileThis.DirectoryName, "ChangeLetterExecutor.exe"));
             if (!fileExe.Exists) {
@@ -102,7 +127,7 @@ namespace ChangeLetter {
             }
 
             var sbArgs = new StringBuilder();
-            sbArgs.Append("/" + action);
+            sbArgs.Append("/" + action.ToString());
             sbArgs.AppendFormat(CultureInfo.InvariantCulture, @" /volume:{0}", volume.VolumeName);
             if (!string.IsNullOrEmpty(newLetter)) {
                 sbArgs.AppendFormat(CultureInfo.InvariantCulture, @" /newletter:{0}", newLetter);
@@ -110,6 +135,17 @@ namespace ChangeLetter {
 
             var exe = new ProcessStartInfo(fileExe.FullName, sbArgs.ToString());
             Process.Start(exe);
+        }
+
+        private void ExecuteViaVhdAttach(VolumeAction action, Volume volume, string newLetter) {
+            switch (action) {
+                case VolumeAction.Change: 
+                    VhdAttachPipeClient.ChangeDriveLetter(volume.VolumeName, newLetter);
+                    break;
+                case VolumeAction.Remove: 
+                    VhdAttachPipeClient.ChangeDriveLetter(volume.VolumeName, "");
+                    break;
+            }
         }
 
     }

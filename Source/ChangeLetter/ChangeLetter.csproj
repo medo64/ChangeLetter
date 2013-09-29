@@ -48,6 +48,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,8 @@
     <Compile Include="%28Medo%29\ErrorReport [019].cs" />
     <Compile Include="%28Medo%29\MessageBox [007].cs" />
     <Compile Include="%28Medo%29\UnhandledCatch [008].cs" />
+    <Compile Include="VhdAttach\%28Medo%29\NamedPipe [003].cs" />
+    <Compile Include="VhdAttach\PipeClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -64,6 +67,8 @@
     </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Properties\SolutionInfo.cs" />
+    <Compile Include="VhdAttach\PipeResponse.cs" />
+    <Compile Include="VhdAttach\%28Medo%29\TinyMessage [009].cs" />
     <Compile Include="Volume.cs" />
   </ItemGroup>
   <ItemGroup>
