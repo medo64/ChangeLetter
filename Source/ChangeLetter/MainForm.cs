@@ -51,6 +51,8 @@ namespace ChangeLetter {
         private void cmbVolumes_SelectedValueChanged(object sender, EventArgs e) {
             lblLetters.Enabled = false;
             cmbLetters.Enabled = false;
+            btnRemove.Text = "Remove";
+            btnRemove.Enabled = false;
             cmbLetters.Items.Clear();
 
             var volume = cmbVolumes.SelectedItem as Volume;
@@ -78,10 +80,7 @@ namespace ChangeLetter {
             }
             cmbLetters.SelectedItem = currLetter;
 
-            if (string.IsNullOrEmpty(volume.DriveLetter2)) {
-                btnRemove.Text = "Remove";
-                btnRemove.Enabled = false;
-            } else {
+            if (!string.IsNullOrEmpty(volume.DriveLetter2)) {
                 btnRemove.Text = "Remove " + volume.DriveLetter2;
                 btnRemove.Enabled = true;
             }
