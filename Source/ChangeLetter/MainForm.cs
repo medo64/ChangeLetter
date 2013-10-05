@@ -49,7 +49,16 @@ namespace ChangeLetter {
 
 
         private void cmbVolumes_SelectedValueChanged(object sender, EventArgs e) {
+            lblLetters.Enabled = false;
+            cmbLetters.Enabled = false;
+            cmbLetters.Items.Clear();
+
             var volume = cmbVolumes.SelectedItem as Volume;
+            if (volume.DriveLetter2 != null) {
+                if (string.Equals(volume.DriveLetter2, Environment.SystemDirectory.Substring(0, 2), StringComparison.OrdinalIgnoreCase)) {
+                    return; //this is system drive
+                }
+            }
 
             var drives = new List<string>();
             for (char letter = 'A'; letter <= 'Z'; letter++) {
@@ -64,7 +73,6 @@ namespace ChangeLetter {
                 }
             }
 
-            cmbLetters.Items.Clear();
             foreach (var drive in drives) {
                 cmbLetters.Items.Add(drive);
             }
@@ -77,6 +85,8 @@ namespace ChangeLetter {
                 btnRemove.Text = "Remove " + volume.DriveLetter2;
                 btnRemove.Enabled = true;
             }
+            lblLetters.Enabled = (cmbLetters.Items.Count > 0);
+            cmbLetters.Enabled = (cmbLetters.Items.Count > 0);
         }
 
         private void cmbLetters_SelectedValueChanged(object sender, EventArgs e) {
@@ -87,6 +97,9 @@ namespace ChangeLetter {
 
 
         private void UpdateAll(Volume selectedVolume) {
+            lblLetters.Enabled = false;
+            cmbLetters.Enabled = false;
+
             foreach (var volume in Volume.GetAllVolumes()) {
                 cmbVolumes.Items.Add(volume);
             }
