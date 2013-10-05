@@ -106,8 +106,9 @@ internal class Volume {
 
     public override string ToString() {
         var sb = new StringBuilder();
-        sb.Append("Disk " + this.PhysicalDriveNumber.Value.ToString(CultureInfo.CurrentCulture));
-        if (this.VolumeIndex != null) { sb.Append("; Volume " + this.VolumeIndex.Value.ToString(CultureInfo.CurrentCulture)); }
+        if (this.PhysicalDriveNumber.HasValue) { sb.Append("Disk " + this.PhysicalDriveNumber.Value.ToString(CultureInfo.CurrentCulture)); }
+        if (sb.Length > 0) { sb.Append("; "); }
+        if (this.VolumeIndex != null) { sb.Append("Volume " + this.VolumeIndex.Value.ToString(CultureInfo.CurrentCulture)); }
         if (this.PhysicalDriveExtentLength != null) {
             sb.Append("; ");
             if (this.PhysicalDriveExtentLength.Value < 1024L) {
@@ -122,9 +123,7 @@ internal class Volume {
                 sb.Append((this.PhysicalDriveExtentLength.Value / 1024 / 1024 / 1024 / 1024).ToString(CultureInfo.CurrentCulture) + "TB");
             }
         }
-        if (this.DriveLetter2 != null) {
-            sb.Append(" (" + this.DriveLetter2 + ")");
-        }
+        if (this.DriveLetter2 != null) { sb.Append(" (" + this.DriveLetter2 + ")"); }
         return sb.ToString();
     }
 

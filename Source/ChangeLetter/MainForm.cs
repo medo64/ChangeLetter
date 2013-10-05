@@ -91,6 +91,7 @@ namespace ChangeLetter {
                 cmbVolumes.Items.Add(volume);
             }
             cmbVolumes.SelectedItem = selectedVolume;
+            if (cmbVolumes.SelectedItem == null) { cmbVolumes.Select(); }
         }
 
 
@@ -139,10 +140,10 @@ namespace ChangeLetter {
 
         private void ExecuteViaVhdAttach(VolumeAction action, Volume volume, string newLetter) {
             switch (action) {
-                case VolumeAction.Change: 
+                case VolumeAction.Change:
                     VhdAttachPipeClient.ChangeDriveLetter(volume.VolumeName, newLetter);
                     break;
-                case VolumeAction.Remove: 
+                case VolumeAction.Remove:
                     VhdAttachPipeClient.ChangeDriveLetter(volume.VolumeName, "");
                     break;
             }

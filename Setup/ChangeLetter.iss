@@ -5,6 +5,7 @@
 #define AppCopyright   GetStringFileInfo('..\Binaries\ChangeLetter.exe', 'LegalCopyright')
 #define AppBase        LowerCase(StringChange(AppName, ' ', ''))
 #define AppSetupFile   AppBase + StringChange(AppVersion, '.', '')
+#define AppVersionEx   StringChange(AppVersion, '0.00', '(latest)')
 
 [Setup]
 AppName={#AppName}
@@ -28,7 +29,7 @@ AlwaysShowComponentsList=no
 ArchitecturesInstallIn64BitMode=x64
 DisableProgramGroupPage=yes
 MergeDuplicateFiles=yes
-MinVersion=0,6.01.7200
+MinVersion=0,5.1
 PrivilegesRequired=admin
 ShowLanguageDialog=no
 SolidCompression=yes
@@ -37,8 +38,8 @@ DisableWelcomePage=yes
 
 
 [Messages]
-SetupAppTitle=Setup {#AppName} {#AppVersion}
-SetupWindowTitle=Setup {#AppName} {#AppVersion}
+SetupAppTitle=Setup {#AppName} {#AppVersionEx}
+SetupWindowTitle=Setup {#AppName} {#AppVersionEx}
 BeveledLabel=jmedved.com
 
 
