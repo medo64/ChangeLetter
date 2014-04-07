@@ -5,7 +5,7 @@ SET     FILE_SOLUTION="..\Source\ChangeLetter.sln"
 SET  FILES_EXECUTABLE="..\Binaries\ChangeLetter.exe" "..\Binaries\ChangeLetterExecutor.exe"
 SET       FILES_OTHER=""
 
-SET      COMPILE_TOOL="%PROGRAMFILES(X86)%\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe"
+SET      COMPILE_TOOL="%PROGRAMFILES(X86)%\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
 SET        SETUP_TOOL="%PROGRAMFILES(x86)%\Inno Setup 5\iscc.exe"
 
 SET         SIGN_TOOL="%PROGRAMFILES(X86)%\Windows Kits\8.0\bin\x86\signtool.exe"
