@@ -4,8 +4,10 @@ SET        FILE_SETUP=".\ChangeLetter.iss"
 SET     FILE_SOLUTION="..\Source\ChangeLetter.sln"
 SET  FILES_EXECUTABLE="..\Binaries\ChangeLetter.exe" "..\Binaries\ChangeLetterExecutor.exe"
 SET       FILES_OTHER=""
+SET     FILES_LICENSE="License.txt"
 
-SET      COMPILE_TOOL="%PROGRAMFILES(X86)%\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
+SET    COMPILE_TOOL_1="%PROGRAMFILES(X86)%\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
+SET    COMPILE_TOOL_2="%PROGRAMFILES(X86)%\Microsoft Visual Studio 12.0\Common7\IDE\WDExpress.exe"
 SET        SETUP_TOOL="%PROGRAMFILES(x86)%\Inno Setup 5\iscc.exe"
 
 SET         SIGN_TOOL="%PROGRAMFILES(X86)%\Windows Kits\8.0\bin\x86\signtool.exe"
@@ -15,6 +17,19 @@ SET SIGN_TIMESTAMPURL="http://timestamp.comodoca.com/rfc3161"
 
 ECHO --- BUILD SOLUTION
 ECHO.
+
+IF EXIST %COMPILE_TOOL_1% (
+    ECHO Using Visual Studio
+    SET COMPILE_TOOL=%COMPILE_TOOL_1%
+) ELSE (
+    IF EXIST %COMPILE_TOOL_2% (
+        ECHO Using Visual Studio Express
+        SET COMPILE_TOOL=%COMPILE_TOOL_2%
+    ) ELSE (
+        ECHO Cannot find Visual Studio!
+        PAUSE && EXIT /B 255
+    )
+)
 
 RMDIR /Q /S "..\Binaries" 2> NUL
 %COMPILE_TOOL% /Build "Release" %FILE_SOLUTION%
@@ -98,7 +113,7 @@ ECHO.
 
 SET _SETUPZIP=%_SETUPEXE:.exe=.zip%
 ECHO Zipping into %_SETUPZIP%
-"%PROGRAMFILES%\WinRAR\WinRAR.exe" a -afzip -ep -m5 ".\Temp\%_SETUPZIP%" %FILES_EXECUTABLE% %FILES_OTHER%
+"%PROGRAMFILES%\WinRAR\WinRAR.exe" a -afzip -ep -m5 -z%FILES_LICENSE% ".\Temp\%_SETUPZIP%" %FILES_EXECUTABLE% %FILES_OTHER%
 IF ERRORLEVEL 1 PAUSE && EXIT /B %ERRORLEVEL%
 
 ECHO.
