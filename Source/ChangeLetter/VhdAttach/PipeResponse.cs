@@ -1,4 +1,4 @@
-﻿namespace ChangeLetter {
+namespace ChangeLetter {
     internal class VhdAttachPipeResponse {
 
         public VhdAttachPipeResponse(bool isError, string message) {

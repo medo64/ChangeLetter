@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeLetter", "ChangeLetter\ChangeLetter.csproj", "{4A1B06E4-6127-48A4-A764-B32459DEA1DD}"

@@ -1,4 +1,4 @@
-﻿namespace ChangeLetter {
+namespace ChangeLetter {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.
