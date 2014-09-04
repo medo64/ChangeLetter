@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32.SafeHandles;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,23 +104,23 @@ internal class Volume {
         return this.VolumeName.GetHashCode();
     }
 
+    private readonly double UnitDivider = 1000;
+
     public override string ToString() {
         var sb = new StringBuilder();
         if (this.PhysicalDriveNumber.HasValue) { sb.Append("Disk " + this.PhysicalDriveNumber.Value.ToString(CultureInfo.CurrentCulture)); }
         if (sb.Length > 0) { sb.Append("; "); }
         if (this.VolumeIndex != null) { sb.Append("Volume " + this.VolumeIndex.Value.ToString(CultureInfo.CurrentCulture)); }
         if (this.PhysicalDriveExtentLength != null) {
-            sb.Append("; ");
-            if (this.PhysicalDriveExtentLength.Value < 1024L) {
-                sb.Append(this.PhysicalDriveExtentLength.Value.ToString(CultureInfo.CurrentCulture) + " B");
-            } else if (this.PhysicalDriveExtentLength.Value < 1024L * 1024) {
-                sb.Append((this.PhysicalDriveExtentLength.Value / 1024).ToString(CultureInfo.CurrentCulture) + "KB");
-            } else if (this.PhysicalDriveExtentLength.Value < 1024L * 1024 * 1024) {
-                sb.Append((this.PhysicalDriveExtentLength.Value / 1024 / 1024).ToString(CultureInfo.CurrentCulture) + "MB");
-            } else if (this.PhysicalDriveExtentLength.Value < 1024L * 1024 * 1024 * 1024) {
-                sb.Append((this.PhysicalDriveExtentLength.Value / 1024 / 1024 / 1024).ToString(CultureInfo.CurrentCulture) + "GB");
+            sb.Append(" - ");
+            if (this.PhysicalDriveExtentLength.Value < UnitDivider * UnitDivider) {
+                sb.Append((this.PhysicalDriveExtentLength.Value / UnitDivider).ToString("0.#", CultureInfo.CurrentCulture) + " KB");
+            } else if (this.PhysicalDriveExtentLength.Value < UnitDivider * UnitDivider * UnitDivider) {
+                sb.Append((this.PhysicalDriveExtentLength.Value / UnitDivider / UnitDivider).ToString("0.#", CultureInfo.CurrentCulture) + " MB");
+            } else if (this.PhysicalDriveExtentLength.Value < UnitDivider * UnitDivider * UnitDivider * UnitDivider) {
+                sb.Append((this.PhysicalDriveExtentLength.Value / UnitDivider / UnitDivider / UnitDivider).ToString("0.#", CultureInfo.CurrentCulture) + " GB");
             } else {
-                sb.Append((this.PhysicalDriveExtentLength.Value / 1024 / 1024 / 1024 / 1024).ToString(CultureInfo.CurrentCulture) + "TB");
+                sb.Append((this.PhysicalDriveExtentLength.Value / UnitDivider / UnitDivider / UnitDivider / UnitDivider).ToString("0.#", CultureInfo.CurrentCulture) + " TB");
             }
         }
         if (this.DriveLetter2 != null) { sb.Append(" (" + this.DriveLetter2 + ")"); }
