@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 
 
 internal static class ExplorerDrives {
@@ -46,10 +47,12 @@ internal static class ExplorerDrives {
     private static int GetNoDrivesValue() {
         using (var regExplorer = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
             if (regExplorer != null) {
-                if (regExplorer.GetValueKind("NoDrives") == Microsoft.Win32.RegistryValueKind.DWord) {
-                    var noDrives = (int)regExplorer.GetValue("NoDrives");
-                    return noDrives;
-                }
+                try {
+                    if (regExplorer.GetValueKind("NoDrives") == Microsoft.Win32.RegistryValueKind.DWord) {
+                        var noDrives = (int)regExplorer.GetValue("NoDrives");
+                        return noDrives;
+                    }
+                } catch (IOException) { }
             }
         }
         return 0;
@@ -64,17 +67,19 @@ internal static class ExplorerDrives {
             try {
                 regPolicies = regCurrent.OpenSubKey("Policies", true);
                 if (regPolicies == null) {
-                    regExplorer.CreateSubKey("Policies");
+                    regCurrent.CreateSubKey("Policies");
                     regPolicies = regCurrent.OpenSubKey("Policies", true);
                 }
 
                 regExplorer = regPolicies.OpenSubKey("Explorer", true);
                 if (regExplorer == null) {
-                    regPolicies.CreateSubKey("Policies");
-                    regExplorer = regCurrent.OpenSubKey("Explorer", true);
+                    regPolicies.CreateSubKey("Explorer");
+                    regExplorer = regPolicies.OpenSubKey("Explorer", true);
                 }
 
-                regExplorer.DeleteValue("NoDrives");
+                try {
+                    regExplorer.DeleteValue("NoDrives");
+                } catch (ArgumentException) { }
                 regExplorer.SetValue("NoDrives", value, RegistryValueKind.DWord);
                 regExplorer.Flush();
             } finally {
