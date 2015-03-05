@@ -5,7 +5,12 @@
 #define AppCopyright   GetStringFileInfo('..\Binaries\ChangeLetter.exe', 'LegalCopyright')
 #define AppBase        LowerCase(StringChange(AppName, ' ', ''))
 #define AppSetupFile   AppBase + StringChange(AppVersion, '.', '')
-#define AppVersionEx   StringChange(AppVersion, '0.00', '(latest)')
+
+#define AppVersionEx   StringChange(AppVersion, '0.00', '')
+#if "" != HgNode
+#  define AppVersionEx AppVersionEx + " (" + HgNode + ")"
+#endif
+
 
 [Setup]
 AppName={#AppName}
@@ -15,7 +20,7 @@ AppPublisher={#AppCompany}
 AppPublisherURL=http://jmedved.com/{#AppBase}/
 AppCopyright={#AppCopyright}
 VersionInfoProductVersion={#AppVersion}
-VersionInfoProductTextVersion={#AppVersion}
+VersionInfoProductTextVersion={#AppVersionEx}
 VersionInfoVersion={#AppFileVersion}
 DefaultDirName={pf}\{#AppCompany}\{#AppName}
 OutputBaseFilename={#AppSetupFile}
@@ -70,3 +75,10 @@ Root: HKCR;  Subkey: "Drive\shell\ChangeLetter\command";     ValueType: string; 
 
 [Run]
 Filename: "{app}\ChangeLetter.exe";  Flags: postinstall nowait skipifsilent runasoriginaluser unchecked;  Description: "Launch application now";
+
+[Code]
+
+procedure InitializeWizard;
+begin
+  WizardForm.LicenseAcceptedRadio.Checked := True;
+end;
