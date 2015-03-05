@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="%28Medo%29\Args [002].cs" />
+    <Compile Include="..\ChangeLetter\ExplorerDrives.cs">
+      <Link>ExplorerDrives.cs</Link>
+    </Compile>
     <Compile Include="..\ChangeLetter\Properties\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>

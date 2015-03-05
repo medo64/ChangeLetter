@@ -56,6 +56,8 @@
     <Compile Include="%28Medo%29\ErrorReport [019].cs" />
     <Compile Include="%28Medo%29\MessageBox [007].cs" />
     <Compile Include="%28Medo%29\UnhandledCatch [008].cs" />
+    <Compile Include="Executor.cs" />
+    <Compile Include="ExplorerDrives.cs" />
     <Compile Include="VhdAttach\%28Medo%29\NamedPipe [003].cs" />
     <Compile Include="VhdAttach\PipeClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

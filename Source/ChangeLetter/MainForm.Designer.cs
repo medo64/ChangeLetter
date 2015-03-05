@@ -29,8 +29,9 @@ namespace ChangeLetter {
             this.lblLetters = new System.Windows.Forms.Label();
             this.cmbLetters = new System.Windows.Forms.ComboBox();
             this.btnChange = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnHide = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbVolumes
@@ -39,39 +40,40 @@ namespace ChangeLetter {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVolumes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVolumes.FormattingEnabled = true;
-            this.cmbVolumes.Location = new System.Drawing.Point(16, 31);
+            this.cmbVolumes.Location = new System.Drawing.Point(13, 30);
             this.cmbVolumes.Margin = new System.Windows.Forms.Padding(4);
             this.cmbVolumes.Name = "cmbVolumes";
-            this.cmbVolumes.Size = new System.Drawing.Size(364, 24);
-            this.cmbVolumes.TabIndex = 5;
+            this.cmbVolumes.Size = new System.Drawing.Size(376, 24);
+            this.cmbVolumes.TabIndex = 4;
             this.cmbVolumes.SelectedValueChanged += new System.EventHandler(this.cmbVolumes_SelectedValueChanged);
             // 
             // lblVolumes
             // 
             this.lblVolumes.AutoSize = true;
-            this.lblVolumes.Location = new System.Drawing.Point(12, 11);
+            this.lblVolumes.Location = new System.Drawing.Point(10, 9);
             this.lblVolumes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVolumes.Name = "lblVolumes";
             this.lblVolumes.Size = new System.Drawing.Size(66, 17);
-            this.lblVolumes.TabIndex = 4;
-            this.lblVolumes.Text = "Volumes:";
+            this.lblVolumes.TabIndex = 3;
+            this.lblVolumes.Text = "&Volumes:";
             // 
             // lblLetters
             // 
+            this.lblLetters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLetters.AutoSize = true;
-            this.lblLetters.Location = new System.Drawing.Point(385, 11);
+            this.lblLetters.Location = new System.Drawing.Point(394, 9);
             this.lblLetters.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLetters.Name = "lblLetters";
             this.lblLetters.Size = new System.Drawing.Size(56, 17);
             this.lblLetters.TabIndex = 0;
-            this.lblLetters.Text = "Letters:";
+            this.lblLetters.Text = "&Letters:";
             // 
             // cmbLetters
             // 
             this.cmbLetters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLetters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLetters.FormattingEnabled = true;
-            this.cmbLetters.Location = new System.Drawing.Point(389, 31);
+            this.cmbLetters.Location = new System.Drawing.Point(397, 30);
             this.cmbLetters.Margin = new System.Windows.Forms.Padding(4);
             this.cmbLetters.Name = "cmbLetters";
             this.cmbLetters.Size = new System.Drawing.Size(52, 24);
@@ -82,50 +84,63 @@ namespace ChangeLetter {
             // 
             this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChange.Enabled = false;
-            this.btnChange.Location = new System.Drawing.Point(198, 77);
+            this.btnChange.Location = new System.Drawing.Point(329, 76);
             this.btnChange.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(120, 34);
             this.btnChange.TabIndex = 2;
-            this.btnChange.Text = "Change";
+            this.btnChange.Text = "&Change";
             this.btnChange.UseVisualStyleBackColor = true;
             this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(326, 77);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(120, 34);
-            this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRemove.Enabled = false;
-            this.btnRemove.Location = new System.Drawing.Point(13, 77);
+            this.btnRemove.Location = new System.Drawing.Point(13, 76);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(120, 34);
-            this.btnRemove.TabIndex = 6;
-            this.btnRemove.Text = "Remove";
+            this.btnRemove.TabIndex = 5;
+            this.btnRemove.Text = "&Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnHide
+            // 
+            this.btnHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnHide.Location = new System.Drawing.Point(141, 76);
+            this.btnHide.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
+            this.btnHide.Name = "btnHide";
+            this.btnHide.Size = new System.Drawing.Size(120, 34);
+            this.btnHide.TabIndex = 6;
+            this.btnHide.Text = "&Hide";
+            this.btnHide.UseVisualStyleBackColor = true;
+            this.btnHide.Visible = false;
+            this.btnHide.Click += new System.EventHandler(this.btnHide_Click);
+            // 
+            // btnShow
+            // 
+            this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnShow.Location = new System.Drawing.Point(141, 76);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(120, 34);
+            this.btnShow.TabIndex = 7;
+            this.btnShow.Text = "&Show";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Visible = false;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // MainForm
             // 
             this.AcceptButton = this.btnChange;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(459, 124);
+            this.ClientSize = new System.Drawing.Size(462, 123);
+            this.Controls.Add(this.btnShow);
+            this.Controls.Add(this.btnHide);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.lblLetters);
             this.Controls.Add(this.cmbLetters);
@@ -150,8 +165,9 @@ namespace ChangeLetter {
         private System.Windows.Forms.Label lblLetters;
         private System.Windows.Forms.ComboBox cmbLetters;
         private System.Windows.Forms.Button btnChange;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnHide;
+        private System.Windows.Forms.Button btnShow;
     }
 }
 

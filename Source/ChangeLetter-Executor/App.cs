@@ -23,16 +23,18 @@ namespace ChangeLetterExecutor {
 
 
                 var volumeArg = Medo.Application.Args.Current.GetValue("volume");
-                var newLetter = Medo.Application.Args.Current.GetValue("newLetter");
+                var letterArg = Medo.Application.Args.Current.GetValue("letter");
 
                 try {
-                    var volume = Volume.GetFromVolumeName(volumeArg);
-                    if (volume != null) {
-                        if (Medo.Application.Args.Current.ContainsKey("change")) {
-                            if (newLetter != null) { volume.ChangeLetter(newLetter); }
-                        } else if (Medo.Application.Args.Current.ContainsKey("remove")) {
-                            volume.RemoveLetter();
-                        }
+                    var volume = (volumeArg != null) ? Volume.GetFromVolumeName(volumeArg) : null;
+                    if (Medo.Application.Args.Current.ContainsKey("change")) {
+                        if ((volume != null) && (letterArg != null)) { volume.ChangeLetter(letterArg); }
+                    } else if (Medo.Application.Args.Current.ContainsKey("remove")) {
+                        if (volume != null) { volume.RemoveLetter(); }
+                    } else if (Medo.Application.Args.Current.ContainsKey("hide")) {
+                        if (letterArg != null) { ExplorerDrives.Hide(letterArg); }
+                    } else if (Medo.Application.Args.Current.ContainsKey("show")) {
+                        if (letterArg != null) { ExplorerDrives.Show(letterArg); }
                     }
                 } catch (Exception ex) {
                     Medo.MessageBox.ShowError(null, ex.Message);
