@@ -7,8 +7,8 @@
 #define AppSetupFile   AppBase + StringChange(AppVersion, '.', '')
 
 #define AppVersionEx   StringChange(AppVersion, '0.00', '')
-#if "" != HgNode
-#  define AppVersionEx AppVersionEx + " (" + HgNode + ")"
+#if "" != VersionHash
+#  define AppVersionEx AppVersionEx + " (" + VersionHash + ")"
 #endif
 
 
@@ -40,7 +40,7 @@ ShowLanguageDialog=no
 SolidCompression=yes
 ChangesAssociations=yes
 DisableWelcomePage=yes
-LicenseFile=..\Setup\License.txt
+LicenseFile=..\Setup\License.rtf
 
 
 [Messages]
@@ -52,6 +52,7 @@ BeveledLabel=jmedved.com
 [Files]
 Source: "ChangeLetter.exe";          DestDir: "{app}";  Flags: ignoreversion;
 Source: "ChangeLetterExecutor.exe";  DestDir: "{app}";  Flags: ignoreversion;
+Source: "ReadMe.txt";  DestDir: "{app}";  Attribs: readonly;  Flags: overwritereadonly uninsremovereadonly;
 
 
 [Tasks]
@@ -74,7 +75,9 @@ Root: HKCR;  Subkey: "Drive\shell\ChangeLetter\command";     ValueType: string; 
 
 
 [Run]
-Filename: "{app}\ChangeLetter.exe";  Flags: postinstall nowait skipifsilent runasoriginaluser unchecked;  Description: "Launch application now";
+Filename: "{app}\ChangeLetter.exe";  Flags: postinstall nowait skipifsilent runasoriginaluser unchecked;            Description: "Launch application now";
+Filename: "{app}\ReadMe.txt";        Flags: postinstall nowait skipifsilent runasoriginaluser unchecked shellexec;  Description: "View ReadMe.txt";
+
 
 [Code]
 
