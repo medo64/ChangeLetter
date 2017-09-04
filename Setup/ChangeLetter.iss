@@ -7,8 +7,10 @@
 #define AppSetupFile   AppBase + StringChange(AppVersion, '.', '')
 
 #define AppVersionEx   StringChange(AppVersion, '0.00', '')
-#if "" != VersionHash
-#  define AppVersionEx AppVersionEx + " (" + VersionHash + ")"
+#ifdef VersionHash
+#  if "" != VersionHash
+#    define AppVersionEx AppVersionEx + " (" + VersionHash + ")"
+#  endif
 #endif
 
 
@@ -27,6 +29,7 @@ OutputBaseFilename={#AppSetupFile}
 OutputDir=..\Releases
 SourceDir=..\Binaries
 AppId=JosipMedved_ChangeLetter
+AppMutex=Global\JosipMedved_ChangeLetter
 CloseApplications="yes"
 RestartApplications="no"
 UninstallDisplayIcon={app}\ChangeLetter.exe
@@ -46,13 +49,14 @@ LicenseFile=..\Setup\License.rtf
 [Messages]
 SetupAppTitle=Setup {#AppName} {#AppVersionEx}
 SetupWindowTitle=Setup {#AppName} {#AppVersionEx}
-BeveledLabel=jmedved.com
+BeveledLabel=medo64.com
 
 
 [Files]
 Source: "ChangeLetter.exe";          DestDir: "{app}";  Flags: ignoreversion;
 Source: "ChangeLetterExecutor.exe";  DestDir: "{app}";  Flags: ignoreversion;
-Source: "ReadMe.txt";  DestDir: "{app}";  Attribs: readonly;  Flags: overwritereadonly uninsremovereadonly;
+Source: "..\README.md";              DestDir: "{app}";  DestName: "ReadMe.txt";   Flags: overwritereadonly uninsremovereadonly;  Attribs: readonly;
+Source: "..\LICENSE.md";             DestDir: "{app}";  DestName: "License.txt";  Flags: overwritereadonly uninsremovereadonly;  Attribs: readonly;
 
 
 [Tasks]
